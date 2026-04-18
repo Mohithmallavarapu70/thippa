@@ -1,506 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>GlobalTech Manufacturing · Stakeholder Map (Power/Interest Grid)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: linear-gradient(145deg, #e9f0f5 0%, #d9e2ec 100%);
-      font-family: 'Inter', sans-serif;
-      padding: 2rem 1.5rem;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* main card container */
-    .stakeholder-dashboard {
-      max-width: 1300px;
-      width: 100%;
-      background: #ffffff;
-      border-radius: 2rem;
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-      transition: all 0.2s;
-    }
-
-    /* header area */
-    .dashboard-header {
-      background: #ffffff;
-      padding: 1.6rem 2rem 1rem 2rem;
-      border-bottom: 1px solid #eef2f8;
-    }
-
-    .title-section {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .title-section h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1E3C72, #2A5298);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.3px;
-    }
-
-    .title-section h1 i {
-      background: none;
-      color: #2A5298;
-      margin-right: 8px;
-    }
-
-    .project-badge {
-      background: #eef2ff;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #1e4a76;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .subtitle {
-      margin-top: 0.8rem;
-      color: #4b6f8e;
-      font-size: 0.9rem;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      border-top: 1px solid #eef2f8;
-      padding-top: 0.8rem;
-    }
-
-    /* axis guide */
-    .axis-guide {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 1.5rem 0 1.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #2c6280;
-    }
-
-    .power-label {
-      background: #f1f5f9;
-      padding: 0.2rem 1rem;
-      border-radius: 20px;
-    }
-
-    .interest-label {
-      background: #f1f5f9;
-      padding: 0.2rem 1rem;
-      border-radius: 20px;
-    }
-
-    /* 2x2 matrix grid */
-    .matrix {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-      padding: 1.2rem 1.5rem 1.5rem 1.5rem;
-    }
-
-    /* quadrant cards */
-    .quadrant {
-      background: #ffffff;
-      border-radius: 1.25rem;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s;
-      border: 1px solid #eef2fa;
-      overflow: hidden;
-    }
-
-    .quadrant:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 28px -12px rgba(0, 0, 0, 0.12);
-    }
-
-    /* quadrant header styles (color accents) */
-    .quadrant-header {
-      padding: 1rem 1.2rem 0.6rem 1.2rem;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.04);
-    }
-
-    .strategy-name {
-      font-weight: 800;
-      font-size: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .quadrant-tag {
-      font-size: 0.65rem;
-      font-weight: 600;
-      background: rgba(0, 0, 0, 0.06);
-      padding: 0.2rem 0.7rem;
-      border-radius: 30px;
-      letter-spacing: 0.3px;
-    }
-
-    .power-interest-meta {
-      font-size: 0.7rem;
-      color: #5a7e9e;
-      margin-top: 6px;
-      display: flex;
-      gap: 12px;
-    }
-
-    /* stakeholder list inside quadrant */
-    .stakeholder-list {
-      padding: 0.8rem 1rem 1.2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    /* individual stakeholder card */
-    .stakeholder-card {
-      background: #fbfeff;
-      border-radius: 0.9rem;
-      padding: 0.65rem 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      border: 1px solid #eef3fc;
-      transition: all 0.15s;
-    }
-
-    .stakeholder-card:hover {
-      background: #ffffff;
-      border-color: #cddfec;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    }
-
-    .stakeholder-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex: 1;
-    }
-
-    .stakeholder-icon {
-      width: 36px;
-      height: 36px;
-      background: #eef3fc;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #1e5a8a;
-      font-size: 1rem;
-    }
-
-    .stakeholder-info h4 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #0f2b3d;
-    }
-
-    .stakeholder-info p {
-      font-size: 0.65rem;
-      color: #6883a0;
-      margin-top: 2px;
-    }
-
-    .info-tooltip {
-      color: #8aaec6;
-      cursor: help;
-      transition: color 0.2s;
-      font-size: 0.9rem;
-    }
-
-    .info-tooltip:hover {
-      color: #1e5a8a;
-    }
-
-    /* quadrant specific top border accents */
-    .quadrant-manage { border-top: 4px solid #d14334; }
-    .quadrant-monitor-high { border-top: 4px solid #e68a2e; }
-    .quadrant-keep { border-top: 4px solid #2c7da0; }
-    .quadrant-monitor-low { border-top: 4px solid #94a3b8; }
-
-    /* legend and footer */
-    .legend-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.2rem;
-      padding: 1rem 1.5rem 1.2rem 1.5rem;
-      border-top: 1px solid #e9edf2;
-      background: #fafcff;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 500;
-    }
-
-    .legend-color {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-    }
-
-    .footer-note {
-      background: #f8fafd;
-      padding: 0.9rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #2e577a;
-      border-top: 1px solid #eef2f8;
-    }
-
-    @media (max-width: 780px) {
-      .matrix {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .dashboard-header {
-        padding: 1rem;
-      }
-      .title-section h1 {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stakeholder Map: Power/Interest Grid for European Expansion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .quadrant {
+            width: 250px;
+            height: 250px;
+            margin: 10px;
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .green {
+            background-color: #d4f1d4;
+        }
+        .blue {
+            background-color: #d0e6f1;
+        }
+        .orange {
+            background-color: #f2d4a5;
+        }
+        .purple {
+            background-color: #d1c3f4;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+            width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-<div class="stakeholder-dashboard">
-  <div class="dashboard-header">
-    <div class="title-section">
-      <h1><i class="fas fa-industry"></i> GlobalTech Manufacturing · Power/Interest Grid</h1>
-      <div class="project-badge"><i class="fas fa-globe-europe"></i> European Expansion · New Facility & Product Lines</div>
-    </div>
-    <div class="subtitle">
-      <span><i class="fas fa-arrow-up"></i> <strong>Power axis</strong> (influence over project)</span>
-      <span><i class="fas fa-arrow-right"></i> <strong>Interest/Engagement axis</strong> (involvement & attention)</span>
-      <span><i class="fas fa-chart-simple"></i> Based on stakeholder mapping methodology</span>
-    </div>
-  </div>
 
-  <!-- visual axis hints (optional) -->
-  <div class="axis-guide">
-    <span class="power-label"><i class="fas fa-arrow-up"></i> HIGH POWER</span>
-    <span class="interest-label">LOW INTEREST <i class="fas fa-arrow-right"></i> HIGH INTEREST</span>
-  </div>
-
-  <!-- 2x2 MATRIX (EXACT MATCH WITH ASCII MAP) -->
-  <div class="matrix">
-    
-    <!-- QUADRANT 1: HIGH POWER / LOW ENGAGEMENT (Top-Left) - "Monitor" (Investors/Shareholders) -->
-    <div class="quadrant quadrant-monitor-high">
-      <div class="quadrant-header">
-        <div class="strategy-name">
-          <span>📌 MONITOR</span>
-          <span class="quadrant-tag">Keep Satisfied</span>
-        </div>
-        <div class="power-interest-meta">
-          <span><i class="fas fa-charging-station"></i> High Power</span>
-          <span><i class="fas fa-battery-quarter"></i> Low Engagement</span>
-        </div>
-      </div>
-      <div class="stakeholder-list">
-        <!-- Investors / Shareholders -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="stakeholder-info">
-              <h4>Investors / Shareholders</h4>
-              <p>Funding & ROI oversight</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Provide capital & expect returns. Interest: Maximizing ROI from European market. Influence: High (funding decisions). Engagement: Low → Quarterly financial updates, milestone reports."></i>
-        </div>
-      </div>
+    <div class="header">
+        <h1>Stakeholder Map: Power/Interest Grid for European Expansion (GlobalTech Manufacturing)</h1>
     </div>
 
-    <!-- QUADRANT 2: HIGH POWER / HIGH ENGAGEMENT (Top-Right) - "Manage Closely" (CEO, Exec Team, Project Manager) -->
-    <div class="quadrant quadrant-manage">
-      <div class="quadrant-header">
-        <div class="strategy-name">
-          <span>⚡ MANAGE CLOSELY</span>
-          <span class="quadrant-tag">Core Decision Makers</span>
+    <div class="grid-container">
+        <!-- Top-left quadrant -->
+        <div class="quadrant green">
+            <h3>Manage Closely</h3>
+            <p><strong>High Power, High Engagement</strong></p>
+            <p>CEO</p>
+            <p>Executive Team</p>
+            <p>Project Manager</p>
         </div>
-        <div class="power-interest-meta">
-          <span><i class="fas fa-charging-station"></i> High Power</span>
-          <span><i class="fas fa-battery-full"></i> High Engagement</span>
+
+        <!-- Top-right quadrant -->
+        <div class="quadrant blue">
+            <h3>Monitor</h3>
+            <p><strong>High Power, Low Engagement</strong></p>
+            <p>Investors/Shareholders</p>
         </div>
-      </div>
-      <div class="stakeholder-list">
-        <!-- CEO -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-crown"></i></div>
-            <div class="stakeholder-info">
-              <h4>CEO</h4>
-              <p>Ultimate decision-maker</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Top-level strategy. Interest: Expansion success & long-term growth. Influence: Very High. Engagement: High → Weekly steering committee & strategic updates."></i>
+
+        <!-- Bottom-left quadrant -->
+        <div class="quadrant orange">
+            <h3>Keep Informed</h3>
+            <p><strong>Low Power, High Engagement</strong></p>
+            <p>Operations Manager</p>
+            <p>Sales & Marketing</p>
+            <p>Employees (involved)</p>
         </div>
-        <!-- Executive Team -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-users"></i></div>
-            <div class="stakeholder-info">
-              <h4>Executive Team</h4>
-              <p>Finance, Ops, HR leadership</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Senior leadership for strategic decisions. Interest: Alignment with corporate goals, budget control. Influence: High. Engagement: High → Monthly board reviews, resource approvals."></i>
+
+        <!-- Bottom-right quadrant -->
+        <div class="quadrant purple">
+            <h3>Monitor</h3>
+            <p><strong>Low Power, Low Engagement</strong></p>
+            <p>European Customers</p>
+            <p>Suppliers</p>
+            <p>Regulatory Bodies</p>
         </div>
-        <!-- Project Manager -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-clipboard-list"></i></div>
-            <div class="stakeholder-info">
-              <h4>Project Manager</h4>
-              <p>Expansion project lead</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Day-to-day execution. Interest: On-time, on-budget delivery. Influence: High (direct control). Engagement: Critical → Daily coordination, risk management."></i>
-        </div>
-      </div>
     </div>
 
-    <!-- QUADRANT 3: LOW POWER / LOW ENGAGEMENT (Bottom-Left) - "Monitor" (Customers, Suppliers, Regulatory) -->
-    <div class="quadrant quadrant-monitor-low">
-      <div class="quadrant-header">
-        <div class="strategy-name">
-          <span>📋 MONITOR</span>
-          <span class="quadrant-tag">Passive oversight</span>
-        </div>
-        <div class="power-interest-meta">
-          <span><i class="fas fa-battery-empty"></i> Low Power</span>
-          <span><i class="fas fa-battery-quarter"></i> Low Engagement</span>
-        </div>
-      </div>
-      <div class="stakeholder-list">
-        <!-- European Customers -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-user-check"></i></div>
-            <div class="stakeholder-info">
-              <h4>European Customers</h4>
-              <p>Target end-users</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Product consumers. Interest: Quality, pricing, availability. Influence: Low (indirect via market feedback). Engagement: Low → Monitor via market research & satisfaction surveys."></i>
-        </div>
-        <!-- Suppliers -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-truck"></i></div>
-            <div class="stakeholder-info">
-              <h4>Suppliers</h4>
-              <p>Raw material providers</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Provide components for manufacturing. Interest: Timely payments, long-term contracts. Influence: Low (supply chain only). Engagement: Low → Periodic procurement updates & delivery schedules."></i>
-        </div>
-        <!-- Regulatory Bodies -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-gavel"></i></div>
-            <div class="stakeholder-info">
-              <h4>Regulatory Bodies (EU)</h4>
-              <p>Compliance, safety, environment</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Enforce local laws & standards. Interest: Compliance with environmental/health regulations. Influence: Medium (can delay project). Engagement: Low → As-needed audits, certification checks."></i>
-        </div>
-      </div>
+    <div class="footer">
+        <p>Power/Interest Grid</p>
     </div>
 
-    <!-- QUADRANT 4: LOW POWER / HIGH ENGAGEMENT (Bottom-Right) - "Keep Informed" (Ops Mgr, Sales/Mkt, Employees) -->
-    <div class="quadrant quadrant-keep">
-      <div class="quadrant-header">
-        <div class="strategy-name">
-          <span>📢 KEEP INFORMED</span>
-          <span class="quadrant-tag">Operational partners</span>
-        </div>
-        <div class="power-interest-meta">
-          <span><i class="fas fa-battery-empty"></i> Low Power</span>
-          <span><i class="fas fa-battery-full"></i> High Engagement</span>
-        </div>
-      </div>
-      <div class="stakeholder-list">
-        <!-- Operations Manager -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-gear"></i></div>
-            <div class="stakeholder-info">
-              <h4>Operations Manager</h4>
-              <p>Facility setup & production</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Ensure smooth launch & efficiency. Interest: Resource allocation, production targets. Influence: Medium (operational). Engagement: High → Weekly operational syncs, capacity planning."></i>
-        </div>
-        <!-- Sales and Marketing Team -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-chart-simple"></i></div>
-            <div class="stakeholder-info">
-              <h4>Sales & Marketing Team</h4>
-              <p>Market entry & brand strategy</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Develop European go-to-market. Interest: Market share, customer adoption. Influence: Medium. Engagement: High → Regular product & campaign alignment meetings."></i>
-        </div>
-        <!-- Employees (involved in expansion) -->
-        <div class="stakeholder-card">
-          <div class="stakeholder-left">
-            <div class="stakeholder-icon"><i class="fas fa-people-group"></i></div>
-            <div class="stakeholder-info">
-              <h4>Employees (involved)</h4>
-              <p>New facility workforce</p>
-            </div>
-          </div>
-          <i class="fas fa-info-circle info-tooltip" title="Role: Day-to-day tasks at new plant. Interest: Job security, workload, growth. Influence: Low. Engagement: High → Transparent internal comms, town halls, training updates."></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Legend & strategy summary -->
-  <div class="legend-section">
-    <div class="legend-item"><div class="legend-color" style="background: #d14334;"></div> <span>Manage Closely (High Power, High Interest)</span></div>
-    <div class="legend-item"><div class="legend-color" style="background: #e68a2e;"></div> <span>Monitor (High Power, Low Interest)</span></div>
-    <div class="legend-item"><div class="legend-color" style="background: #2c7da0;"></div> <span>Keep Informed (Low Power, High Interest)</span></div>
-    <div class="legend-item"><div class="legend-color" style="background: #94a3b8;"></div> <span>Monitor (Low Power, Low Interest)</span></div>
-    <div class="legend-item"><i class="fas fa-info-circle" style="color:#3e7b9e;"></i> <span>Hover ℹ️ for detailed role & engagement</span></div>
-  </div>
-
-  <div class="footer-note">
-    <i class="fas fa-chalkboard-user"></i> <strong>Engagement action plan</strong> — 
-    <strong>Manage Closely:</strong> weekly steering committee & milestone dashboards.  
-    <strong>Monitor (High Power):</strong> quarterly investor reports.  
-    <strong>Keep Informed:</strong> bi-weekly operational reviews & marketing syncs.  
-    <strong>Monitor (Low Power):</strong> compliance audits & supplier scorecards.
-  </div>
-</div>
 </body>
 </html>
