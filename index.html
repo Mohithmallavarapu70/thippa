@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Trine University | Business Analytics Portfolio</title>
-  <!-- Google Fonts & Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>GlobalTech Manufacturing · Stakeholder Map (Power/Interest Grid)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -15,455 +14,493 @@
     }
 
     body {
+      background: linear-gradient(145deg, #e9f0f5 0%, #d9e2ec 100%);
       font-family: 'Inter', sans-serif;
-      background: #f4f7fc;
-      color: #1a2c3e;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-    }
-
-    /* modern gradient background effect */
-    .bg-gradient {
-      background: radial-gradient(circle at 10% 20%, rgba(0, 102, 204, 0.03), rgba(0, 45, 75, 0.02));
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
       padding: 2rem 1.5rem;
-    }
-
-    /* cards and glassmorphism */
-    .card {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(2px);
-      border-radius: 2rem;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
-      padding: 1.8rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      height: 100%;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 28px 40px -16px rgba(0, 70, 120, 0.15);
-    }
-
-    /* headers */
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #0A4B6E, #1C7E9C);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.02em;
-    }
-
-    h2 {
-      font-size: 1.75rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      display: inline-block;
-      border-left: 5px solid #2c9cd4;
-      padding-left: 1rem;
-      color: #0a2f44;
-    }
-
-    h3 {
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
-      color: #155f7c;
+      min-height: 100vh;
       display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* main card container */
+    .stakeholder-dashboard {
+      max-width: 1300px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    /* header area */
+    .dashboard-header {
+      background: #ffffff;
+      padding: 1.6rem 2rem 1rem 2rem;
+      border-bottom: 1px solid #eef2f8;
+    }
+
+    .title-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .title-section h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1E3C72, #2A5298);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .title-section h1 i {
+      background: none;
+      color: #2A5298;
+      margin-right: 8px;
+    }
+
+    .project-badge {
+      background: #eef2ff;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e4a76;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
     }
 
-    .badge {
-      background: #eef2ff;
-      color: #0c6b8f;
-      padding: 0.2rem 0.8rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      width: fit-content;
+    .subtitle {
+      margin-top: 0.8rem;
+      color: #4b6f8e;
+      font-size: 0.9rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      border-top: 1px solid #eef2f8;
+      padding-top: 0.8rem;
     }
 
-    /* progress bar style (infographic) */
-    .skill-item {
-      margin-bottom: 1.2rem;
-    }
-
-    .skill-label {
+    /* axis guide */
+    .axis-guide {
       display: flex;
       justify-content: space-between;
-      font-weight: 500;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
+      padding: 0.5rem 1.5rem 0 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #2c6280;
     }
 
-    .progress-bar-bg {
-      background: #e2e8f0;
-      border-radius: 30px;
-      height: 8px;
+    .power-label {
+      background: #f1f5f9;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+    }
+
+    .interest-label {
+      background: #f1f5f9;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+    }
+
+    /* 2x2 matrix grid */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    /* quadrant cards */
+    .quadrant {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border: 1px solid #eef2fa;
       overflow: hidden;
     }
 
-    .progress-fill {
-      background: linear-gradient(90deg, #2c9cd4, #0f6b8c);
-      width: 0%;
-      height: 100%;
-      border-radius: 30px;
-      transition: width 0.5s ease;
+    .quadrant:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 28px -12px rgba(0, 0, 0, 0.12);
     }
 
-    /* grid layouts */
-    .grid-2col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 2rem;
+    /* quadrant header styles (color accents) */
+    .quadrant-header {
+      padding: 1rem 1.2rem 0.6rem 1.2rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.04);
     }
 
-    .grid-3col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 2rem;
-    }
-
-    /* infographic row: stats & flow */
-    .infographic-flow {
-      background: #ffffffcc;
-      border-radius: 2rem;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      border: 1px solid rgba(44, 156, 212, 0.25);
-      backdrop-filter: blur(4px);
-    }
-
-    .flow-steps {
+    .strategy-name {
+      font-weight: 800;
+      font-size: 1.2rem;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
     }
 
-    .step {
-      flex: 1;
-      text-align: center;
-      min-width: 120px;
-      background: #f8fafc;
-      border-radius: 2rem;
-      padding: 1rem 0.5rem;
-      transition: all 0.2s;
-    }
-
-    .step i {
-      font-size: 2rem;
-      color: #1f8cad;
-      margin-bottom: 0.5rem;
-    }
-
-    .step p {
+    .quadrant-tag {
+      font-size: 0.65rem;
       font-weight: 600;
-      font-size: 0.85rem;
+      background: rgba(0, 0, 0, 0.06);
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
     }
 
-    .arrow-icon {
-      font-size: 1.5rem;
-      color: #9ab3c5;
-    }
-
-    /* tag group for values */
-    .values-tag {
-      background: #eaf5fa;
-      border-radius: 60px;
-      padding: 0.4rem 1rem;
-      font-weight: 500;
-      display: inline-block;
-      margin: 0.3rem 0.4rem;
-    }
-
-    .icon-list {
-      list-style: none;
-      margin-top: 0.8rem;
-    }
-
-    .icon-list li {
-      margin-bottom: 0.7rem;
+    .power-interest-meta {
+      font-size: 0.7rem;
+      color: #5a7e9e;
+      margin-top: 6px;
       display: flex;
-      align-items: center;
       gap: 12px;
     }
 
-    .icon-list li i {
-      width: 26px;
-      color: #2c9cd4;
+    /* stakeholder list inside quadrant */
+    .stakeholder-list {
+      padding: 0.8rem 1rem 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
     }
 
-    hr {
-      margin: 1rem 0;
-      border: none;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+    /* individual stakeholder card */
+    .stakeholder-card {
+      background: #fbfeff;
+      border-radius: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid #eef3fc;
+      transition: all 0.15s;
     }
 
-    .quote {
-      font-style: italic;
-      border-left: 4px solid #2c9cd4;
-      padding-left: 1rem;
-      background: #f9fbfd;
-      border-radius: 1rem;
-      margin: 1rem 0;
-      padding: 1rem;
+    .stakeholder-card:hover {
+      background: #ffffff;
+      border-color: #cddfec;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
-    footer {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      color: #5e7a93;
-      font-size: 0.85rem;
-      border-top: 1px solid rgba(0,0,0,0.05);
-      margin-top: 1rem;
+    .stakeholder-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
     }
 
-    @media (max-width: 700px) {
-      .container {
-        padding: 1.2rem;
-      }
-      h1 {
-        font-size: 1.9rem;
-      }
-      .flow-steps .arrow-icon {
-        display: none;
-      }
+    .stakeholder-icon {
+      width: 36px;
+      height: 36px;
+      background: #eef3fc;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #1e5a8a;
+      font-size: 1rem;
     }
 
-    .profile-header {
+    .stakeholder-info h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #0f2b3d;
+    }
+
+    .stakeholder-info p {
+      font-size: 0.65rem;
+      color: #6883a0;
+      margin-top: 2px;
+    }
+
+    .info-tooltip {
+      color: #8aaec6;
+      cursor: help;
+      transition: color 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .info-tooltip:hover {
+      color: #1e5a8a;
+    }
+
+    /* quadrant specific top border accents */
+    .quadrant-manage { border-top: 4px solid #d14334; }
+    .quadrant-monitor-high { border-top: 4px solid #e68a2e; }
+    .quadrant-keep { border-top: 4px solid #2c7da0; }
+    .quadrant-monitor-low { border-top: 4px solid #94a3b8; }
+
+    /* legend and footer */
+    .legend-section {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 1rem 1.5rem 1.2rem 1.5rem;
+      border-top: 1px solid #e9edf2;
+      background: #fafcff;
+    }
+
+    .legend-item {
+      display: flex;
       align-items: center;
-      margin-bottom: 1.5rem;
-      gap: 1rem;
-    }
-
-    .univ-logo {
-      background: #0A2E40;
-      color: white;
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      font-weight: 600;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid #2c9cd4;
-      border-radius: 40px;
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
+      gap: 8px;
+      font-size: 0.7rem;
       font-weight: 500;
-      transition: 0.2s;
     }
 
-    .btn-ghost:hover {
-      background: #2c9cd4;
-      color: white;
+    .legend-color {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+    }
+
+    .footer-note {
+      background: #f8fafd;
+      padding: 0.9rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #2e577a;
+      border-top: 1px solid #eef2f8;
+    }
+
+    @media (max-width: 780px) {
+      .matrix {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .dashboard-header {
+        padding: 1rem;
+      }
+      .title-section h1 {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
-<body class="bg-gradient">
-  <div class="container">
-    <!-- header area -->
-    <div class="profile-header">
-      <div>
-        <h1>📊 Business Analytics Portfolio</h1>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px;">
-          <span class="badge"><i class="fas fa-graduation-cap"></i> MBA • Trine University</span>
-          <span class="badge"><i class="fas fa-chart-line"></i> Business Analytics Concentration</span>
-        </div>
-      </div>
-      <div>
-        <div class="univ-logo"><i class="fas fa-database"></i> Data-driven leader</div>
-      </div>
+<body>
+<div class="stakeholder-dashboard">
+  <div class="dashboard-header">
+    <div class="title-section">
+      <h1><i class="fas fa-industry"></i> GlobalTech Manufacturing · Power/Interest Grid</h1>
+      <div class="project-badge"><i class="fas fa-globe-europe"></i> European Expansion · New Facility & Product Lines</div>
     </div>
-
-    <!-- about me + background infographic blend -->
-    <div class="grid-2col">
-      <div class="card">
-        <h3><i class="fas fa-user-astronaut"></i> About Me</h3>
-        <p style="margin-bottom: 0.8rem;">🎓 <strong>Trine University</strong> — MBA with concentration in <strong>Business Analytics</strong>. Passionate about transforming raw data into strategic assets and optimizing business performance through analytical rigor.</p>
-        <p>With a strong foundation in data-driven decision-making, I leverage analytical tools & methodologies to bridge the gap between technical insights and executive leadership. My academic journey focuses on analytics, statistics, and business operations to drive sustainable growth.</p>
-        <hr>
-        <div><i class="fas fa-bullseye" style="color:#1f8cad;"></i> <strong>Mission:</strong> Turning complexity into clarity — empowering organizations with actionable data stories.</div>
-      </div>
-      <div class="card">
-        <h3><i class="fas fa-chalkboard-user"></i> Key Strengths</h3>
-        <ul class="icon-list">
-          <li><i class="fas fa-brain"></i> <strong>Analytical Thinking</strong> — Uncover patterns & trends in complex datasets.</li>
-          <li><i class="fas fa-lightbulb"></i> <strong>Problem Solving</strong> — Resolve business challenges with data-backed solutions.</li>
-          <li><i class="fas fa-comments"></i> <strong>Effective Communication</strong> — Translate analytics into persuasive stakeholder narratives.</li>
-          <li><i class="fas fa-people-arrows"></i> <strong>Leadership</strong> — Guide cross-functional teams, align priorities, drive motivation.</li>
-        </ul>
-        <div class="badge" style="margin-top: 12px;"><i class="fas fa-chart-simple"></i> Strategic foresight & change agility</div>
-      </div>
+    <div class="subtitle">
+      <span><i class="fas fa-arrow-up"></i> <strong>Power axis</strong> (influence over project)</span>
+      <span><i class="fas fa-arrow-right"></i> <strong>Interest/Engagement axis</strong> (involvement & attention)</span>
+      <span><i class="fas fa-chart-simple"></i> Based on stakeholder mapping methodology</span>
     </div>
-
-    <!-- TECHNICAL SKILLS + DATA VISUALIZATION (infographic progress) -->
-    <div class="grid-2col">
-      <div class="card">
-        <h3><i class="fas fa-code"></i> Technical Proficiency</h3>
-        <div class="skill-item">
-          <div class="skill-label"><span>🐍 Python (Pandas, NumPy)</span><span>85%</span></div>
-          <div class="progress-bar-bg"><div class="progress-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>📊 SQL & Database Management</span><span>80%</span></div>
-          <div class="progress-bar-bg"><div class="progress-fill" style="width:80%"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>📈 Tableau / Data Visualization</span><span>85%</span></div>
-          <div class="progress-bar-bg"><div class="progress-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>📑 Excel (Advanced Analytics)</span><span>90%</span></div>
-          <div class="progress-bar-bg"><div class="progress-fill" style="width:90%"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>📐 Statistical Analysis (SPSS/R)</span><span>82%</span></div>
-          <div class="progress-bar-bg"><div class="progress-fill" style="width:82%"></div></div>
-        </div>
-        <div class="badge" style="margin-top: 1rem;"><i class="fas fa-cloud-arrow-up"></i> ETL | A/B Testing | Predictive Modeling</div>
-      </div>
-
-      <div class="card">
-        <h3><i class="fas fa-chart-pie"></i> Analytics Toolkit</h3>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1rem;">
-          <span class="values-tag"><i class="fab fa-python"></i> Python</span>
-          <span class="values-tag"><i class="fas fa-database"></i> SQL Server</span>
-          <span class="values-tag"><i class="fas fa-chart-line"></i> Tableau</span>
-          <span class="values-tag"><i class="fas fa-file-excel"></i> Advanced Excel</span>
-          <span class="values-tag"><i class="fas fa-chart-bar"></i> Power BI</span>
-          <span class="values-tag"><i class="fas fa-calculator"></i> Stats Modeling</span>
-        </div>
-        <p><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> <strong>Data Storytelling</strong> — Translate large datasets into executive dashboards & strategic recommendations.</p>
-        <p><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> <strong>Advanced analytics</strong> — Python for regression, clustering, and business forecasting.</p>
-        <p><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> <strong>Data governance & integrity</strong> — ensuring ethical data usage in decision processes.</p>
-      </div>
-    </div>
-
-    <!-- VALUES & CAREER GOALS -->
-    <div class="grid-2col">
-      <div class="card">
-        <h3><i class="fas fa-heart"></i> Core Values</h3>
-        <div style="margin-top: 0.5rem;">
-          <span class="values-tag"><i class="fas fa-book-open"></i> Continuous Learning</span>
-          <span class="values-tag"><i class="fas fa-hand-peace"></i> Integrity & Ethics</span>
-          <span class="values-tag"><i class="fas fa-users"></i> Teamwork & Collaboration</span>
-        </div>
-        <p style="margin-top: 1rem;">I believe that sustainable analytics transformation relies on transparency, ethical data usage, and inclusive leadership that empowers every team member to contribute.</p>
-      </div>
-      <div class="card">
-        <h3><i class="fas fa-flag-checkered"></i> Career Aspirations</h3>
-        <ul class="icon-list">
-          <li><i class="fas fa-chart-line"></i> <strong>Leader in Business Analytics</strong> — driving data-informed decisions at strategic level.</li>
-          <li><i class="fas fa-building"></i> <strong>Organizational Strategy & Change Management</strong> — bridge analytics and executive vision.</li>
-          <li><i class="fas fa-rocket"></i> <strong>Business Excellence</strong> — leverage data insights to optimize performance & innovation.</li>
-        </ul>
-        <div class="badge"><i class="fas fa-gem"></i> Aspire to become Chief Data & Analytics Officer</div>
-      </div>
-    </div>
-
-    <!-- INFOGRAFIC BLOCK : Change management + strategy flow (visual infographic) -->
-    <div class="infographic-flow">
-      <h3 style="border-left: none; text-align: center; justify-content: center;"><i class="fas fa-diagram-project"></i>  Infographic: Data-Driven Change Management Framework</h3>
-      <div class="flow-steps">
-        <div class="step"><i class="fas fa-chart-simple"></i><p>Data Insights & Analytics</p></div>
-        <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-        <div class="step"><i class="fas fa-bullhorn"></i><p>Strategic Alignment</p></div>
-        <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-        <div class="step"><i class="fas fa-people-carry-box"></i><p>Leadership & Buy-in</p></div>
-        <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-        <div class="step"><i class="fas fa-charging-station"></i><p>Change Execution</p></div>
-        <div class="arrow-icon"><i class="fas fa-arrow-right"></i></div>
-        <div class="step"><i class="fas fa-trophy"></i><p>Business Excellence</p></div>
-      </div>
-      <div style="text-align: center; margin-top: 1.2rem; font-size: 0.9rem; background: #eef2fa; border-radius: 60px; padding: 0.5rem;">
-        <i class="fas fa-lightbulb"></i> “Effective change management = analytics + empathetic leadership + strategic vision”
-      </div>
-    </div>
-
-    <!-- REFLECTION: ORGANIZATIONAL STRATEGY & CHANGE MANAGEMENT + CPT EXPERIENCE -->
-    <div class="card" style="margin-bottom: 2rem;">
-      <h3><i class="fas fa-chalkboard"></i>  Reflection: Org Strategy & Change Management</h3>
-      <p>This week’s lesson on <strong>organizational strategy and change management</strong> reinforced how leadership alignment & strategic foresight drive successful transformations. I learned that aligning analytics strategy with leadership practices ensures all stakeholders work toward a common goal, making change sustainable and impactful.</p>
-      <div class="quote">
-        <i class="fas fa-briefcase" style="margin-right: 8px; color:#2c9cd4;"></i> <strong>CPT Experience Insight:</strong> During my CPT, leadership decisions around data analytics and organizational structure directly impacted strategy execution. When leaders effectively communicated data-driven insights, decision-making streamlined and the organization adapted faster to market shifts. This real-world exposure validated the power of analytics in change management.
-      </div>
-      <p>The <strong>change management frameworks</strong> we studied (Kotter’s 8 steps, ADKAR) gave me a clear roadmap to address resistance and encourage stakeholder buy-in. As I take on future leadership roles, I will leverage these frameworks to embed data-informed decisions into organizational culture.</p>
-      <p><strong>Key takeaway:</strong> Strategic foresight, transparent communication, and the ability to manage resistance are vital to ensure data initiatives create long-term value. My goal is to become a leader who integrates analytics with empathy and change agility.</p>
-      <hr>
-      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
-        <span><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> Align data strategy with core objectives</span>
-        <span><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> Empower teams through analytics literacy</span>
-        <span><i class="fas fa-check-circle" style="color:#2c9cd4;"></i> Agile transformation mindset</span>
-      </div>
-    </div>
-
-    <!-- additional infographic: analytics impact stats -->
-    <div class="grid-3col" style="margin-top: 0rem;">
-      <div class="card" style="text-align: center;">
-        <i class="fas fa-chart-line" style="font-size: 2.5rem; color:#1f8cad;"></i>
-        <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">Data-Driven Culture</h3>
-        <p>82% of organizations accelerate decision-making with analytics integration — I aim to drive that shift.</p>
-      </div>
-      <div class="card" style="text-align: center;">
-        <i class="fas fa-people-group" style="font-size: 2.5rem; color:#1f8cad;"></i>
-        <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">Collaborative Leadership</h3>
-        <p>Building analytics ambassadors across departments to break silos and promote data fluency.</p>
-      </div>
-      <div class="card" style="text-align: center;">
-        <i class="fas fa-chart-gantt" style="font-size: 2.5rem; color:#1f8cad;"></i>
-        <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">Change Resilience</h3>
-        <p>Proven ability to guide teams through transitions using empathy + performance metrics.</p>
-      </div>
-    </div>
-
-    <!-- GitHub Portfolio CTA + Link simulation -->
-    <div style="background: linear-gradient(110deg, #e9f2f9, #ffffff); border-radius: 2rem; padding: 1.5rem; text-align: center; margin-top: 1rem; border: 1px solid #cde3ef;">
-      <i class="fab fa-github" style="font-size: 2.5rem; color:#1a2c3e;"></i>
-      <h3 style="margin: 0.5rem 0;">Portfolio on GitHub</h3>
-      <p>Explore my analytics projects, dashboards, and change management case studies on GitHub — showcasing SQL, Python, Tableau and strategic business analytics work.</p>
-      <div style="margin-top: 1rem;">
-        <span class="btn-ghost"><i class="fab fa-github"></i> github.com/trine-analytics-portfolio</span>
-        <span class="btn-ghost" style="margin-left: 0.6rem;"><i class="fas fa-chart-column"></i> Live dashboards</span>
-      </div>
-      <p style="margin-top: 1rem; font-size: 0.8rem;"><i class="fas fa-code-branch"></i> Ready to deploy — interactive infographic portfolio / MBA Business Analytics</p>
-    </div>
-
-    <footer>
-      <i class="fas fa-graduation-cap"></i> Trine University — MBA in Business Analytics | 2025 | Data-driven leader, strategic change agent <br>
-      <span style="font-size: 0.7rem;">📊 “Turning data into strategy, insights into impact” — Portfolio & infographic design for academic & professional excellence</span>
-    </footer>
   </div>
 
-  <!-- optional small JS for dynamic progress animation (just for smooth on load) -->
-  <script>
-    // Animate progress bars on load to create visual polish
-    document.addEventListener('DOMContentLoaded', () => {
-      const progressBars = document.querySelectorAll('.progress-fill');
-      progressBars.forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0%';
-        setTimeout(() => {
-          bar.style.width = width;
-        }, 100);
-      });
-    });
-  </script>
+  <!-- visual axis hints (optional) -->
+  <div class="axis-guide">
+    <span class="power-label"><i class="fas fa-arrow-up"></i> HIGH POWER</span>
+    <span class="interest-label">LOW INTEREST <i class="fas fa-arrow-right"></i> HIGH INTEREST</span>
+  </div>
+
+  <!-- 2x2 MATRIX (EXACT MATCH WITH ASCII MAP) -->
+  <div class="matrix">
+    
+    <!-- QUADRANT 1: HIGH POWER / LOW ENGAGEMENT (Top-Left) - "Monitor" (Investors/Shareholders) -->
+    <div class="quadrant quadrant-monitor-high">
+      <div class="quadrant-header">
+        <div class="strategy-name">
+          <span>📌 MONITOR</span>
+          <span class="quadrant-tag">Keep Satisfied</span>
+        </div>
+        <div class="power-interest-meta">
+          <span><i class="fas fa-charging-station"></i> High Power</span>
+          <span><i class="fas fa-battery-quarter"></i> Low Engagement</span>
+        </div>
+      </div>
+      <div class="stakeholder-list">
+        <!-- Investors / Shareholders -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="stakeholder-info">
+              <h4>Investors / Shareholders</h4>
+              <p>Funding & ROI oversight</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Provide capital & expect returns. Interest: Maximizing ROI from European market. Influence: High (funding decisions). Engagement: Low → Quarterly financial updates, milestone reports."></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUADRANT 2: HIGH POWER / HIGH ENGAGEMENT (Top-Right) - "Manage Closely" (CEO, Exec Team, Project Manager) -->
+    <div class="quadrant quadrant-manage">
+      <div class="quadrant-header">
+        <div class="strategy-name">
+          <span>⚡ MANAGE CLOSELY</span>
+          <span class="quadrant-tag">Core Decision Makers</span>
+        </div>
+        <div class="power-interest-meta">
+          <span><i class="fas fa-charging-station"></i> High Power</span>
+          <span><i class="fas fa-battery-full"></i> High Engagement</span>
+        </div>
+      </div>
+      <div class="stakeholder-list">
+        <!-- CEO -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-crown"></i></div>
+            <div class="stakeholder-info">
+              <h4>CEO</h4>
+              <p>Ultimate decision-maker</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Top-level strategy. Interest: Expansion success & long-term growth. Influence: Very High. Engagement: High → Weekly steering committee & strategic updates."></i>
+        </div>
+        <!-- Executive Team -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-users"></i></div>
+            <div class="stakeholder-info">
+              <h4>Executive Team</h4>
+              <p>Finance, Ops, HR leadership</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Senior leadership for strategic decisions. Interest: Alignment with corporate goals, budget control. Influence: High. Engagement: High → Monthly board reviews, resource approvals."></i>
+        </div>
+        <!-- Project Manager -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-clipboard-list"></i></div>
+            <div class="stakeholder-info">
+              <h4>Project Manager</h4>
+              <p>Expansion project lead</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Day-to-day execution. Interest: On-time, on-budget delivery. Influence: High (direct control). Engagement: Critical → Daily coordination, risk management."></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUADRANT 3: LOW POWER / LOW ENGAGEMENT (Bottom-Left) - "Monitor" (Customers, Suppliers, Regulatory) -->
+    <div class="quadrant quadrant-monitor-low">
+      <div class="quadrant-header">
+        <div class="strategy-name">
+          <span>📋 MONITOR</span>
+          <span class="quadrant-tag">Passive oversight</span>
+        </div>
+        <div class="power-interest-meta">
+          <span><i class="fas fa-battery-empty"></i> Low Power</span>
+          <span><i class="fas fa-battery-quarter"></i> Low Engagement</span>
+        </div>
+      </div>
+      <div class="stakeholder-list">
+        <!-- European Customers -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-user-check"></i></div>
+            <div class="stakeholder-info">
+              <h4>European Customers</h4>
+              <p>Target end-users</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Product consumers. Interest: Quality, pricing, availability. Influence: Low (indirect via market feedback). Engagement: Low → Monitor via market research & satisfaction surveys."></i>
+        </div>
+        <!-- Suppliers -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-truck"></i></div>
+            <div class="stakeholder-info">
+              <h4>Suppliers</h4>
+              <p>Raw material providers</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Provide components for manufacturing. Interest: Timely payments, long-term contracts. Influence: Low (supply chain only). Engagement: Low → Periodic procurement updates & delivery schedules."></i>
+        </div>
+        <!-- Regulatory Bodies -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-gavel"></i></div>
+            <div class="stakeholder-info">
+              <h4>Regulatory Bodies (EU)</h4>
+              <p>Compliance, safety, environment</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Enforce local laws & standards. Interest: Compliance with environmental/health regulations. Influence: Medium (can delay project). Engagement: Low → As-needed audits, certification checks."></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUADRANT 4: LOW POWER / HIGH ENGAGEMENT (Bottom-Right) - "Keep Informed" (Ops Mgr, Sales/Mkt, Employees) -->
+    <div class="quadrant quadrant-keep">
+      <div class="quadrant-header">
+        <div class="strategy-name">
+          <span>📢 KEEP INFORMED</span>
+          <span class="quadrant-tag">Operational partners</span>
+        </div>
+        <div class="power-interest-meta">
+          <span><i class="fas fa-battery-empty"></i> Low Power</span>
+          <span><i class="fas fa-battery-full"></i> High Engagement</span>
+        </div>
+      </div>
+      <div class="stakeholder-list">
+        <!-- Operations Manager -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-gear"></i></div>
+            <div class="stakeholder-info">
+              <h4>Operations Manager</h4>
+              <p>Facility setup & production</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Ensure smooth launch & efficiency. Interest: Resource allocation, production targets. Influence: Medium (operational). Engagement: High → Weekly operational syncs, capacity planning."></i>
+        </div>
+        <!-- Sales and Marketing Team -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-chart-simple"></i></div>
+            <div class="stakeholder-info">
+              <h4>Sales & Marketing Team</h4>
+              <p>Market entry & brand strategy</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Develop European go-to-market. Interest: Market share, customer adoption. Influence: Medium. Engagement: High → Regular product & campaign alignment meetings."></i>
+        </div>
+        <!-- Employees (involved in expansion) -->
+        <div class="stakeholder-card">
+          <div class="stakeholder-left">
+            <div class="stakeholder-icon"><i class="fas fa-people-group"></i></div>
+            <div class="stakeholder-info">
+              <h4>Employees (involved)</h4>
+              <p>New facility workforce</p>
+            </div>
+          </div>
+          <i class="fas fa-info-circle info-tooltip" title="Role: Day-to-day tasks at new plant. Interest: Job security, workload, growth. Influence: Low. Engagement: High → Transparent internal comms, town halls, training updates."></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend & strategy summary -->
+  <div class="legend-section">
+    <div class="legend-item"><div class="legend-color" style="background: #d14334;"></div> <span>Manage Closely (High Power, High Interest)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background: #e68a2e;"></div> <span>Monitor (High Power, Low Interest)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background: #2c7da0;"></div> <span>Keep Informed (Low Power, High Interest)</span></div>
+    <div class="legend-item"><div class="legend-color" style="background: #94a3b8;"></div> <span>Monitor (Low Power, Low Interest)</span></div>
+    <div class="legend-item"><i class="fas fa-info-circle" style="color:#3e7b9e;"></i> <span>Hover ℹ️ for detailed role & engagement</span></div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-chalkboard-user"></i> <strong>Engagement action plan</strong> — 
+    <strong>Manage Closely:</strong> weekly steering committee & milestone dashboards.  
+    <strong>Monitor (High Power):</strong> quarterly investor reports.  
+    <strong>Keep Informed:</strong> bi-weekly operational reviews & marketing syncs.  
+    <strong>Monitor (Low Power):</strong> compliance audits & supplier scorecards.
+  </div>
+</div>
 </body>
 </html>
