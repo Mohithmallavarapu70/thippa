@@ -1,108 +1,535 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stakeholder Map: Power/Interest Grid for European Expansion</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .quadrant {
-            width: 250px;
-            height: 250px;
-            margin: 10px;
-            border: 2px solid black;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px;
-        }
-        .green {
-            background-color: #d4f1d4;
-        }
-        .blue {
-            background-color: #d0e6f1;
-        }
-        .orange {
-            background-color: #f2d4a5;
-        }
-        .purple {
-            background-color: #d1c3f4;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 10px;
-            width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            margin-top: 30px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>BookNest | Discover Your Next Read</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #faf8f5;
+      color: #1e2a2e;
+      line-height: 1.5;
+    }
+
+    /* main container */
+    .app-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* header */
+    .hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2c3e2f, #b75e2c);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #4a5b5e;
+      margin-top: 0.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* filter bar */
+    .filter-section {
+      background: white;
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .search-box {
+      flex: 2;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      background: #f1f2f4;
+      border-radius: 2.5rem;
+      padding: 0.5rem 1rem;
+      transition: all 0.2s;
+    }
+    .search-box i {
+      color: #8a9b6e;
+      margin-right: 0.6rem;
+      font-size: 1.1rem;
+    }
+    .search-box input {
+      background: transparent;
+      border: none;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .filter-group label {
+      font-weight: 500;
+      color: #2c3e2f;
+    }
+    select {
+      background: #f1f2f4;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 2rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+    }
+    .clear-btn {
+      background: #ede7dd;
+      border: none;
+      padding: 0.6rem 1.3rem;
+      border-radius: 2rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #4e3b2c;
+    }
+    .clear-btn:hover {
+      background: #e0d4c4;
+    }
+
+    /* book grid */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* book card */
+    .book-card {
+      background: white;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid #f0eae2;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.15);
+      border-color: #e2d5c6;
+    }
+
+    /* cover icon / placeholder */
+    .book-cover {
+      background: linear-gradient(145deg, #e6dfd3, #f8f2e9);
+      padding: 1.8rem 0;
+      text-align: center;
+      border-bottom: 2px solid #f2e7db;
+    }
+    .book-cover i {
+      font-size: 4.2rem;
+      color: #c17b4c;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.05));
+    }
+
+    .book-info {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .book-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #2d3e2b;
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+    .book-author {
+      font-size: 0.9rem;
+      color: #7b6e5d;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .book-author i {
+      font-size: 0.8rem;
+      color: #b98f6e;
+    }
+    .description {
+      font-size: 0.9rem;
+      color: #2d3a3a;
+      margin-bottom: 1.2rem;
+      line-height: 1.45;
+      border-left: 3px solid #e2cbb6;
+      padding-left: 0.75rem;
+    }
+    /* rating row */
+    .rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .stars {
+      display: flex;
+      gap: 3px;
+      color: #f5b642;
+      font-size: 0.85rem;
+    }
+    .rating-value {
+      font-weight: 600;
+      font-size: 0.85rem;
+      background: #f6f1ea;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+    }
+    .review-snippet {
+      background: #fefaf5;
+      padding: 0.8rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #4f5e54;
+      border-left: 2px solid #e2bc8c;
+    }
+    .review-snippet i {
+      color: #b16e3a;
+      margin-right: 5px;
+    }
+    .availability {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.6rem;
+      border-top: 1px solid #efe4d8;
+      padding-top: 0.9rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 2rem;
+      background: #eef2e6;
+      color: #2f5e3a;
+    }
+    .badge.in-stock { background: #e0f2e4; color: #1f6e3c; }
+    .badge.low-stock { background: #fff0e0; color: #c26e2a; }
+    .badge.out-stock { background: #fae6e6; color: #b13e3e; }
+    .stock-note {
+      font-size: 0.75rem;
+      color: #8d7a68;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      background: #fef9f2;
+      border-radius: 2rem;
+      color: #8d7862;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #b8aa99;
+      border-top: 1px solid #efe3d6;
+    }
+    @media (max-width: 680px) {
+      .app-wrapper {
+        padding: 1.2rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-group {
+        justify-content: space-between;
+      }
+    }
+  </style>
 </head>
 <body>
+<div class="app-wrapper">
+  <div class="hero">
+    <h1><i class="fas fa-book-open" style="color:#c17b4c;"></i> BookNest</h1>
+    <p>Thoughtful reviews, authentic ratings & real-time availability — find books that speak to you.</p>
+  </div>
 
-    <div class="header">
-        <h1>Stakeholder Map: Power/Interest Grid for European Expansion (GlobalTech Manufacturing)</h1>
+  <!-- filter & search panel -->
+  <div class="filter-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Search by title or author...">
     </div>
-
-    <div class="grid-container">
-        <!-- Top-left quadrant -->
-        <div class="quadrant green">
-            <h3>Manage Closely</h3>
-            <p><strong>High Power, High Engagement</strong></p>
-            <p>CEO</p>
-            <p>Executive Team</p>
-            <p>Project Manager</p>
-        </div>
-
-        <!-- Top-right quadrant -->
-        <div class="quadrant blue">
-            <h3>Monitor</h3>
-            <p><strong>High Power, Low Engagement</strong></p>
-            <p>Investors/Shareholders</p>
-        </div>
-
-        <!-- Bottom-left quadrant -->
-        <div class="quadrant orange">
-            <h3>Keep Informed</h3>
-            <p><strong>Low Power, High Engagement</strong></p>
-            <p>Operations Manager</p>
-            <p>Sales & Marketing</p>
-            <p>Employees (involved)</p>
-        </div>
-
-        <!-- Bottom-right quadrant -->
-        <div class="quadrant purple">
-            <h3>Monitor</h3>
-            <p><strong>Low Power, Low Engagement</strong></p>
-            <p>European Customers</p>
-            <p>Suppliers</p>
-            <p>Regulatory Bodies</p>
-        </div>
+    <div class="filter-group">
+      <label><i class="fas fa-filter"></i> Availability:</label>
+      <select id="availabilityFilter">
+        <option value="all">All books</option>
+        <option value="In Stock">In Stock</option>
+        <option value="Low Stock">Low Stock / Limited</option>
+        <option value="Out of Stock">Out of Stock</option>
+      </select>
+      <button class="clear-btn" id="clearFiltersBtn"><i class="fas fa-eraser"></i> Clear filters</button>
     </div>
+  </div>
 
-    <div class="footer">
-        <p>Power/Interest Grid</p>
-    </div>
+  <!-- dynamic book grid -->
+  <div id="booksContainer" class="books-grid"></div>
+  <footer>
+    <i class="fas fa-star" style="color:#e2bc8c;"></i> honest reviews &nbsp;|&nbsp; 
+    <i class="fas fa-check-circle"></i> live availability &nbsp;|&nbsp;
+    find your perfect story
+  </footer>
+</div>
 
+<script>
+  // ---------- MOCK BOOK DATABASE (with descriptions, ratings, reviews, availability) ----------
+  const booksData = [
+    {
+      id: 1,
+      title: "The Midnight Library",
+      author: "Matt Haig",
+      description: "Between life and death lies a library where every book offers a chance to try another life. A soul-stirring journey of regret and possibility.",
+      rating: 4.6,
+      reviewsCount: 1245,
+      reviewExcerpt: "An emotional masterpiece that redefines second chances. I cried, I smiled, I reflected.",
+      availability: "In Stock"
+    },
+    {
+      id: 2,
+      title: "Project Hail Mary",
+      author: "Andy Weir",
+      description: "A lone astronaut wakes up with amnesia on a spaceship. With wit and science, he must save humanity from extinction.",
+      rating: 4.9,
+      reviewsCount: 3210,
+      reviewExcerpt: "Brilliant sci-fi with heart, humor, and unexpected friendship. Absolutely unputdownable!",
+      availability: "In Stock"
+    },
+    {
+      id: 3,
+      title: "Where the Crawdads Sing",
+      author: "Delia Owens",
+      description: "A haunting mystery intertwining a murder case and a coming-of-age story in the marshes of North Carolina.",
+      rating: 4.7,
+      reviewsCount: 4789,
+      reviewExcerpt: "Lyrical and immersive — nature writing at its best, paired with a gripping plot.",
+      availability: "Low Stock"
+    },
+    {
+      id: 4,
+      title: "The Seven Husbands of Evelyn Hugo",
+      author: "Taylor Jenkins Reid",
+      description: "Aging Hollywood icon reveals the scandalous, glamorous truth behind her seven marriages and one true love.",
+      rating: 4.8,
+      reviewsCount: 2310,
+      reviewExcerpt: "Heartbreaking, glamorous, and utterly captivating. Evelyn Hugo will stay with you.",
+      availability: "In Stock"
+    },
+    {
+      id: 5,
+      title: "Dune",
+      author: "Frank Herbert",
+      description: "Epic saga of politics, religion, and ecology on the desert planet Arrakis. A visionary masterpiece of science fiction.",
+      rating: 4.5,
+      reviewsCount: 1520,
+      reviewExcerpt: "World-building beyond compare. A dense, rewarding classic that defined the genre.",
+      availability: "Out of Stock"
+    },
+    {
+      id: 6,
+      title: "Klara and the Sun",
+      author: "Kazuo Ishiguro",
+      description: "An AI companion observes humanity from a unique perspective, exploring love, sacrifice, and what makes us human.",
+      rating: 4.3,
+      reviewsCount: 1020,
+      reviewExcerpt: "Tender, haunting, and quietly profound. Ishiguro delivers another thought-provoking gem.",
+      availability: "Low Stock"
+    },
+    {
+      id: 7,
+      title: "Tomorrow, and Tomorrow, and Tomorrow",
+      author: "Gabrielle Zevin",
+      description: "A dazzling story of friendship, creativity, and the world of video game design spanning three decades.",
+      rating: 4.8,
+      reviewsCount: 2105,
+      reviewExcerpt: "A love letter to imagination, collaboration, and the games that shape us. Absolutely stunning.",
+      availability: "In Stock"
+    }
+  ];
+
+  // Helper: generate star rating HTML (full, half, empty) based on numeric rating (0-5)
+  function renderStars(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = (rating % 1) >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    let starsHtml = '';
+    for (let i = 0; i < fullStars; i++) {
+      starsHtml += '<i class="fas fa-star"></i>';
+    }
+    if (halfStar) {
+      starsHtml += '<i class="fas fa-star-half-alt"></i>';
+    }
+    for (let i = 0; i < emptyStars; i++) {
+      starsHtml += '<i class="far fa-star"></i>';
+    }
+    return starsHtml;
+  }
+
+  // map availability to badge class and human text
+  function getBadgeClass(availability) {
+    if (availability === "In Stock") return "in-stock";
+    if (availability === "Low Stock") return "low-stock";
+    if (availability === "Out of Stock") return "out-stock";
+    return "low-stock";
+  }
+
+  // optional stock note
+  function getStockNote(availability) {
+    if (availability === "In Stock") return "Ready to ship";
+    if (availability === "Low Stock") return "Only few copies left";
+    return "Currently unavailable";
+  }
+
+  // Render filtered books based on search & availability filter
+  function renderBooks() {
+    const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+    const availabilityValue = document.getElementById('availabilityFilter').value;
+    
+    let filtered = [...booksData];
+    
+    // filter by search (title or author)
+    if (searchTerm !== "") {
+      filtered = filtered.filter(book => 
+        book.title.toLowerCase().includes(searchTerm) || 
+        book.author.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // filter by availability
+    if (availabilityValue !== "all") {
+      filtered = filtered.filter(book => book.availability === availabilityValue);
+    }
+    
+    const container = document.getElementById('booksContainer');
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="no-results">
+        <i class="fas fa-book-dead" style="font-size: 2rem; opacity: 0.6;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">No books found</h3>
+        <p>Try adjusting your search or availability filter ✨</p>
+      </div>`;
+      return;
+    }
+    
+    // build each card
+    let cardsHtml = '';
+    filtered.forEach(book => {
+      const starHtml = renderStars(book.rating);
+      const badgeClass = getBadgeClass(book.availability);
+      const stockNote = getStockNote(book.availability);
+      // format rating to one decimal
+      const ratingFixed = book.rating.toFixed(1);
+      
+      cardsHtml += `
+        <div class="book-card">
+          <div class="book-cover">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="book-info">
+            <div class="book-title">${escapeHtml(book.title)}</div>
+            <div class="book-author"><i class="fas fa-user-pen"></i> ${escapeHtml(book.author)}</div>
+            <div class="description">📖 ${escapeHtml(book.description)}</div>
+            
+            <div class="rating-row">
+              <div class="stars">${starHtml}</div>
+              <div class="rating-value">${ratingFixed} ⭐ (${book.reviewsCount.toLocaleString()} reviews)</div>
+            </div>
+            
+            <div class="review-snippet">
+              <i class="fas fa-quote-left"></i> “${escapeHtml(book.reviewExcerpt)}”
+            </div>
+            
+            <div class="availability">
+              <span class="badge ${badgeClass}"><i class="fas ${book.availability === 'In Stock' ? 'fa-check-circle' : (book.availability === 'Low Stock' ? 'fa-exclamation-triangle' : 'fa-times-circle')}"></i> ${book.availability}</span>
+              <span class="stock-note"><i class="fas fa-store"></i> ${stockNote}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = cardsHtml;
+  }
+  
+  // simple escape to avoid XSS
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  // clear filters: reset search input + availability dropdown to 'all'
+  function clearAllFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('availabilityFilter').value = 'all';
+    renderBooks();
+  }
+
+  // attach event listeners and initial render
+  document.addEventListener('DOMContentLoaded', () => {
+    renderBooks();
+    
+    const searchInput = document.getElementById('searchInput');
+    const availabilitySelect = document.getElementById('availabilityFilter');
+    const clearBtn = document.getElementById('clearFiltersBtn');
+    
+    searchInput.addEventListener('input', () => renderBooks());
+    availabilitySelect.addEventListener('change', () => renderBooks());
+    clearBtn.addEventListener('click', clearAllFilters);
+  });
+</script>
 </body>
 </html>
